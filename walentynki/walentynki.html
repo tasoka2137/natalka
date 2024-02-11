@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="walentynki.css">
+    <title>Walentynki</title>
+    
+</head>
+<body>
+    <div id="question">
+        <center><p class="pyt">Czy chcesz zobaczyć zawartość 1?</p></center>
+        <div id="butopa">
+        <button class="button" onclick="showContent(1)">Tak</button>
+        <button class="button" onclick="showContent(0)">Nie</button>
+        </div>
+    </div>
+
+    <div id="content1">
+       <div id="zap">
+       <center><p class="pyt">Wróć tu w Walentynki</p></center>
+       <center><div class="pyt"id="countdown"></div></center>
+       </div>
+       <div id="wiersz">
+        <center><p class="pyt2">W dniu czternastym lutego, o szóstej ranniej,
+            Div się pojawił, jakby z bajki snem usłaną.
+            Wysłany czasem, aby serca rozgrzać,
+            Łaską miłości, na ekranie wyświetlić, by dać.
+            
+            Jego tajemnicza treść, ukryta przez noc,
+            Ukazuje się teraz, w pełnym świetle dnia moc.
+            Wiersz ten powstaje, by przywitać go w ciszy,
+            Divie, który przybył, aż do naszych umysłów brzegów bliskich.
+            
+            Niech każdy, kto patrzy, na jego treść wstrzyma oddech,
+            Bo Div, co się pojawia, kryje w sobie wielką tajemnicę w swej pieczęci.
+            Wiersz ten zakończony, na jego spotkanie, czekamy z ciekawością,
+            Bo Div, co się pojawił, to wizja, co daje nam spojrzenie w nieba gwiaździstej drogi.</p></center>
+
+       </div>
+    </div>
+
+    <div id="content2">
+    
+        <center><p class="pyt">);</p></center>
+    </div>
+
+    <script>
+        
+        // Sprawdzenie, czy użytkownik już odpowiedział na pytanie
+        const answered = localStorage.getItem('answered');
+
+        if (answered === '1') {
+            showContent(1);
+        } else if (answered === '0') {
+            showContent(0); 
+        }
+
+        function showContent(choice) {
+            document.getElementById('question').style.display = 'none';
+            
+            if (choice === 1) {
+                document.getElementById('content1').style.display = 'block';
+            } else {
+                document.getElementById('content2').style.display = 'block';
+            }
+            localStorage.setItem('answered', choice);
+        function checkDateTime() {
+            var targetDate = new Date('February 14, 2024 00:00:00');
+            var currentDate = new Date();
+
+            if (currentDate.getTime() >= targetDate.getTime()) {
+                document.getElementById('wiersz').style.display = 'block';
+                document.getElementById('zap').style.display = 'none';
+            }
+        }
+        setInterval(checkDateTime, 10);
+        }
+        // Funkcja, która oblicza czas pozostały do 14 lutego
+        function calculateTimeUntilFebruary14() {
+            var today = new Date();
+            var targetDate = new Date('February 14, 2024 00:00:00');
+            var timeUntilFebruary14 = targetDate - today;
+
+            // Obliczanie dni, godzin, minut i sekund
+            var days = Math.floor(timeUntilFebruary14 / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeUntilFebruary14 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeUntilFebruary14 % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeUntilFebruary14 % (1000 * 60)) / 1000);
+
+            // Wyświetlenie odliczania na stronie
+            document.getElementById('countdown').innerHTML =  days + ' dni ' + hours + ' godzin ' + minutes + ' minut ' + seconds + ' sekund';
+        }
+
+        // Wywołanie funkcji co sekundę
+        setInterval(calculateTimeUntilFebruary14, 1000);
+
+        // Wywołanie funkcji raz na starcie, aby uniknąć opóźnienia w odliczaniu
+        calculateTimeUntilFebruary14();
+    </script>
+</body>
+</html>
